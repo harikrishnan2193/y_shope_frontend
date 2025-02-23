@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getCartItemsAPI, updateCartItemAPI } from "../services/allApi";
 import { useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 
 function Cart() {
   const navigate = useNavigate()
@@ -55,7 +56,8 @@ function Cart() {
           )
         );
       } else {
-        alert(response.data?.message || "Product reach the limit");
+        Swal.fire(response.response.data.message)
+        // alert(response.data?.message || "Product reach the limit");
       }
     } catch (err) {
       console.error("Error updating quantity:", err);
@@ -64,15 +66,16 @@ function Cart() {
         (typeof err.response?.data === "string" ? err.response.data : "") ||
         err.message ||
         "Error updating quantity";
-      alert(errorMsg);
+      // alert(errorMsg);
+      Swal.fire(errorMsg)
     }
   }
 
   //function for clicking checkout 
- const handleCheckout = ()=>{
-  alert('Checkout succussfull')
-  navigate('/')
- }
+  const handleCheckout = () => {
+    Swal.fire('Checkout succussfull')
+    navigate('/')
+  }
 
   return (
     <div className="mx-auto max-w-6xl px-5">

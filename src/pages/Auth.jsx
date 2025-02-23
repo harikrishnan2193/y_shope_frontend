@@ -64,7 +64,7 @@ function Auth() {
         }
       }
       else{
-        alert(`${result.response.data}`)
+        Swal.fire(`${result.response.data}`)
       }
     }
   }

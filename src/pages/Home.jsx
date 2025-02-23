@@ -47,7 +47,7 @@ function Home() {
     try {
       const result = await addToCartAPI(reqBody, reqHeader);
       if (result.status === 200) {
-        console.log(result);   
+        console.log(result);
         Swal.fire(result.data.message)
       } else {
         console.log(result);
@@ -55,7 +55,7 @@ function Home() {
       }
     } catch (error) {
       console.error("Error adding to cart:", error);
-      alert("Something went wrong while adding the item to the cart.");
+      Swal.fire("Something went wrong while adding the item to the cart.")
     }
   }
 

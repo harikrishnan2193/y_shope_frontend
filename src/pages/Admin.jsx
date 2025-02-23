@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { BASE_URL } from '../services/baseUrl';
 import { updateStockAPI } from '../services/allApi';
 import Header from '../components/Header';
+import Swal from 'sweetalert2';
 
 function Admin() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -20,7 +21,7 @@ function Admin() {
 
   const handleStockUpdate = async () => {
     if (!selectedProductId || !stock) {
-      alert('Please enter a valid stock quantity');
+      Swal.fire("Please enter a valid stock quantity")
       return;
     }
 
@@ -33,14 +34,14 @@ function Admin() {
     try {
       const result = await updateStockAPI(selectedProductId, reqBody, reqHeader);
       if (result.status === 200) {
-        alert('Stock updated successfully');
+        Swal.fire("Stock updated successfully")
         window.location.reload();
       } else {
-        alert(result.message);
+        Swal.fire(result.message)
       }
     } catch (error) {
       console.error('Error updating stock:', error);
-      alert('Something went wrong');
+      Swal.fire('Something went wrong')
     }
   }
 
