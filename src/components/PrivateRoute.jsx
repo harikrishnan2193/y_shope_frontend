@@ -16,10 +16,10 @@ const PrivateRoute = ({ children }) => {
     }
   }, []);
 
-  console.log("Current user:", user); // Debugging
+  console.log("Current user:", user); 
 
   if (user === null) {
-    return null; // Prevents rendering until user data is available
+    return null;
   }
 
   return user?.role === "admin" ? children : <Navigate to="/404" replace />;
