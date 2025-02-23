@@ -10,6 +10,8 @@ function Home() {
   const products = useSelector((state) => state.products.items);
   const [token, setToken] = useState("")
 
+  
+
   //get token from session and store to state
   useEffect(() => {
     if (sessionStorage.getItem("token")) {

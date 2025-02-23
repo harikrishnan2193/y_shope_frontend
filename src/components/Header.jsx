@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { addProdutAPI } from '../services/allApi';
 import Swal from 'sweetalert2';
+import { useDispatch } from 'react-redux';
+import { fetchProducts } from '../redux/productSlice';
 
 function Header() {
   const navigate = useNavigate()
@@ -21,6 +23,8 @@ function Header() {
   const location = useLocation();
   const isAdminPath = location.pathname === '/admin';
   const isHomePath = location.pathname === '/';
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     const storedUser = JSON.parse(sessionStorage.getItem('userDetils'));
@@ -90,9 +94,10 @@ function Header() {
         // console.log(result);
         if (result.status === 200) {
           Swal.fire('Project added succesfully')
-          setProduct({ name: "", price: "", stock: "", setImgPreview: "" })
+          setProduct({ name: "", price: "", stock: "", productImage: "" })
+          setImgPreview("")
           setIsModalOpen(false)
-          window.location.reload();
+          dispatch(fetchProducts())
         }
         else {
           Swal.fire(result.response.data)

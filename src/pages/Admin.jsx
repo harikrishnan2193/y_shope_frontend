@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { BASE_URL } from '../services/baseUrl';
 import { updateStockAPI } from '../services/allApi';
 import Header from '../components/Header';
 import Swal from 'sweetalert2';
+import { fetchProducts } from '../redux/productSlice';
 
 function Admin() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -18,6 +19,8 @@ function Admin() {
   }, []);
 
   const products = useSelector((state) => state.products.items);
+  
+  const dispatch = useDispatch();
 
   const handleStockUpdate = async () => {
     if (!selectedProductId || !stock) {
@@ -35,7 +38,9 @@ function Admin() {
       const result = await updateStockAPI(selectedProductId, reqBody, reqHeader);
       if (result.status === 200) {
         Swal.fire("Stock updated successfully")
-        window.location.reload();
+        setIsModalOpen(false)
+        dispatch(fetchProducts())
+        setStock('')
       } else {
         Swal.fire(result.message)
       }
@@ -87,12 +92,12 @@ function Admin() {
         <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
           <div className="bg-white p-6 rounded-lg shadow-lg w-96">
             <div className="flex justify-between items-center mb-4">
-              <h2 className="text-lg font-semibold">Update Stock Level</h2>
+              <h2 className="text-lg font-semibold">Update Stock</h2>
               <button onClick={() => setIsModalOpen(false)} className="text-gray-500 hover:text-red-500">
                 <i className="fa-solid fa-xmark text-xl"></i>
               </button>
             </div>
-            <label className="block text-sm font-medium text-gray-700">Enter New Added Quantity</label>
+            <label className="block text-sm font-medium text-gray-700">Enter New Added Stock</label>
             <input
               type="number"
               className="w-full border rounded-lg p-2 mt-2 focus:outline-none focus:ring focus:ring-blue-300"
