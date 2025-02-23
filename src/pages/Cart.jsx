@@ -116,12 +116,12 @@ function Cart() {
                         <td className="p-3">{item.name}</td>
                         <td className="p-3">
                           <div className="flex items-center space-x-2">
-                            <button className="px-3 py-1 bg-gray-300 rounded" onClick={() =>
-                              updateQuantity(item._id, item.quantity - 1)}>-
+                            <button className="px-3 py-1 bg-gray-300 rounded"
+                              onClick={() => updateQuantity(item._id, Math.max(0, Number(item.quantity) - 1))}>-
                             </button>
                             <input type="text" value={item.quantity} className="w-10 text-center border rounded" readOnly />
                             <button className="px-3 py-1 bg-gray-300 rounded"
-                              onClick={() => updateQuantity(item._id, item.quantity + 1)}>+
+                              onClick={() => updateQuantity(item._id, Number(item.quantity) + 1)}>+
                             </button>
                           </div>
                         </td>
