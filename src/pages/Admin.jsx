@@ -66,7 +66,7 @@ function Admin() {
                     </h5>
                     <span className="text-primary text-xl">${item.price}</span>
                     <h2 className="text-sm">Available stock: {item.stock}</h2>
-                    <div className="flex justify-between p-3">
+                    <div className="flex justify-center p-2">
                       <button
                         className="border border-green-500 text-green-500 px-4 py-2 rounded-md transition duration-300 hover:bg-green-500 hover:text-white"
                         onClick={() => {
@@ -74,7 +74,7 @@ function Admin() {
                           setIsModalOpen(true);
                         }}
                       >
-                        <i className="fa-solid fa-arrow-trend-up"></i> <p>Update Stock Level</p>
+                        <i className="fa-solid fa-arrow-trend-up"></i> <p>Update Stock</p>
                       </button>
                     </div>
                   </div>
