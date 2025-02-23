@@ -19,19 +19,19 @@ function Auth() {
     e.preventDefault();
     const { name, email, password } = userData
     if (!name || !email || !password) {
-      alert('Please fill all the form completily')
+      Swal.fire("Please fill all the form completily")
     }
     else {
       const result = await registerAPI(userData)
       console.log(result);
 
       if (result.status === 200) {
-        alert(`${result.data.name} is successfully registered`)
+        Swal.fire(`${result.data.name} is successfully registered`)
         setUserData({ name: "", email: "", password: "" })
         navigate('/login')
       }
       else {
-        alert(`${result.response.data}`)
+        Swal.fire(`${result.response.data}`)
         if (result.status === 406) {
           navigate('/register')
         }

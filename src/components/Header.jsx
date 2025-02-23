@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { addProdutAPI } from '../services/allApi';
+import Swal from 'sweetalert2';
 
 function Header() {
   const navigate = useNavigate()
@@ -45,20 +46,30 @@ function Header() {
     sessionStorage.removeItem('userDetils');
     sessionStorage.removeItem('token');
     setUserDetails(null);
-    alert('Logout sucussfull')
+    Swal.fire('Logout sucussfull')
     navigate('/');
+  }
+
+  //function to handleCart
+  const handleCart = () => {
+    if (!token) {
+      Swal.fire('You are not loged in!')
+    }
+    else {
+      navigate('/cart')
+    }
   }
 
   //function to add product
   const handleAddProduct = async (e) => {
     if (!token) {
-      alert('Not authorized to upload')
+      Swal.fire('Not authorized to upload')
     }
     e.preventDefault()
     const { name, price, stock, productImage } = product
 
     if (!name || !price || !stock || !productImage) {
-      alert('Plese fill all the fillds')
+      Swal.fire('Plese fill all the fillds')
     }
     else {
       //reqBody
@@ -78,13 +89,13 @@ function Header() {
         const result = await addProdutAPI(reqBody, reqHeader)
         // console.log(result);
         if (result.status === 200) {
-          alert('Project added succesfully')
+          Swal.fire('Project added succesfully')
           setProduct({ name: "", price: "", stock: "", setImgPreview: "" })
           setIsModalOpen(false)
           window.location.reload();
         }
         else {
-          alert(result.response.data);
+          Swal.fire(result.response.data)
         }
       }
     }
@@ -102,11 +113,11 @@ function Header() {
 
           {isHomePath && (
             <div className='hidden text-white xl:flex flex-col sm:flex-row space-x-0 sm:space-x-8 space-y-2 sm:space-y-0'>
-              <Link to={'/cart'}>
-                <button className="btn btn-outline-light me-2">
-                  <i className="fa-solid fa-cart-shopping"></i> Cart
-                </button>
-              </Link>
+              {/* <Link to={'/cart'}> */}
+              <button onClick={handleCart} className="btn btn-outline-light me-2">
+                <i className="fa-solid fa-cart-shopping"></i> Cart
+              </button>
+              {/* </Link> */}
               {userDetails ? (
                 <button onClick={handleLogout} className='btn btn-outline-light rounded-pill'>
                   <i className="fa-solid fa-sign-out"></i> Logout ({userDetails.name})

@@ -11,6 +11,7 @@ import AllOrders from "./pages/AllOrders"
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchProducts } from "./redux/productSlice";
+import PrivateRoute from "./components/PrivateRoute"
 
 function App() {
   const dispatch = useDispatch();
@@ -20,18 +21,54 @@ function App() {
   }, [dispatch]);
 
   return (
+    // <>
+    //   <Routes>
+    //     <Route path="/" element={<Home />} />
+    //     <Route path="/register" element={<Auth />} />
+    //     <Route path="/login" element={<Auth />} />
+    //     <Route path="/cart" element={<Cart />} />
+    //     <Route path="/admin" element={<Admin />} />
+    //     <Route path="/allUsers" element={<AllUsers />} />
+    //     <Route path="/allorders" element={<AllOrders />} />
+    //   </Routes>
+    //   <Footer />
+    // </>
+
     <>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/register" element={<Auth />} />
         <Route path="/login" element={<Auth />} />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/admin" element={<Admin />} />
-        <Route path="/allUsers" element={<AllUsers />} />
-        <Route path="/allorders" element={<AllOrders />} />
+  
+        {/* Protected Admin Routes */}
+        <Route
+          path="/admin"
+          element={
+            <PrivateRoute>
+              <Admin />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/allUsers"
+          element={
+            <PrivateRoute>
+              <AllUsers />
+            </PrivateRoute>
+          }
+        />
+        <Route
+          path="/allorders"
+          element={
+            <PrivateRoute>
+              <AllOrders />
+            </PrivateRoute>
+          }
+        />
       </Routes>
-      <Footer />
     </>
+
   );
 }
 
