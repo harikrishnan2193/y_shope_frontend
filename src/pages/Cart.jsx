@@ -94,7 +94,7 @@ function Cart() {
                     <th className="p-3">Product Name</th>
                     <th className="p-3">Quantity</th>
                     <th className="p-3">Price</th>
-                    <th className="p-3">Action</th>
+                    {/* <th className="p-3">Action</th> */}
                   </tr>
                 </thead>
                 <tbody>
@@ -132,11 +132,11 @@ function Cart() {
                         <td className="p-3 text-teal-500 font-bold">
                           ₹{item.price}
                         </td>
-                        <td className="p-3">
+                        {/* <td className="p-3">
                           <button className="text-red-500 hover:text-red-700">
                             <i className="fa-solid fa-trash"></i>
                           </button>
-                        </td>
+                        </td> */}
                       </tr>
                     ))
                   ) : (
