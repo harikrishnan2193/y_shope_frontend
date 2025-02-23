@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { loginAPI, registerAPI } from '../services/allApi';
+import Swal from 'sweetalert2';
 
 function Auth() {
   const navigate = useNavigate()
@@ -44,7 +45,7 @@ function Auth() {
     e.preventDefault();
     const {email,password} = userData
     if(!email || !password){
-      alert('Please fill the form completily')
+      Swal.fire("Please fill the form completily")
     }
     else{
       const result = await loginAPI(userData)
@@ -54,7 +55,7 @@ function Auth() {
         sessionStorage.setItem('userDetils',JSON.stringify(result.data.existUser))
         sessionStorage.setItem('token',result.data.token)
 
-        alert('Login successfull')
+        Swal.fire("Login successfull")
 
         if (result.data.existUser.role && result.data.existUser.role == "admin") {
           navigate('/admin');

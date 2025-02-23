@@ -4,6 +4,7 @@ import { fetchProducts } from "../redux/productSlice";
 import Header from "../components/Header";
 import { BASE_URL } from "../services/baseUrl";
 import { addToCartAPI } from "../services/allApi";
+import Swal from "sweetalert2";
 
 function Home() {
   const products = useSelector((state) => state.products.items);
@@ -16,13 +17,19 @@ function Home() {
     }
   }, [])
 
-  // Function to add item to cart
+  // function to add item to cart
   const handleAddToCart = async (product) => {
     if (!token) {
-      alert("Not authorized to add items to cart");
+      // alert("Not authorized to add items to cart. Please login");
+      Swal.fire({
+        title: "Not authorized to add items!",
+        text: "Please login",
+        icon: "warning",
+        confirmButtonColor: "#ff0000",
+      })
       return;
     }
-  
+
     const reqBody = {
       productId: product._id,
       name: product.name,
@@ -30,26 +37,28 @@ function Home() {
       quantity: 1,
       productImage: product.productImage,
     };
-    console.log(reqBody);
-  
+    // console.log(reqBody);
+
     const reqHeader = {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
     };
-  
+
     try {
-      const response = await addToCartAPI(reqBody, reqHeader);
-      if (response.status === 200) {
-        alert("Item added to cart successfully!");
+      const result = await addToCartAPI(reqBody, reqHeader);
+      if (result.status === 200) {
+        console.log(result);   
+        Swal.fire(result.data.message)
       } else {
-        alert(response.data.message || "Failed to add item to cart");
+        console.log(result);
+        Swal.fire(result.response.data.message)
       }
     } catch (error) {
       console.error("Error adding to cart:", error);
       alert("Something went wrong while adding the item to the cart.");
     }
-  };
-  
+  }
+
 
   return (
     <>

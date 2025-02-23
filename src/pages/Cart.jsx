@@ -67,6 +67,8 @@ function Cart() {
       alert(errorMsg);
     }
   }
+
+  //function for clicking checkout 
  const handleCheckout = ()=>{
   alert('Checkout succussfull')
   navigate('/')
