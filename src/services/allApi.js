@@ -42,4 +42,7 @@ export const updateCartItemAPI = async (cartItemId, quantity) => {
     return await commonAPI('PUT', `${BASE_URL}/cart/update/${cartItemId}`, { quantity });
 }
 
+export const deleteCartItemAPI = async (cartItemId, quantity) => {
+    return await commonAPI('DELETE', `${BASE_URL}/cart/delete/${cartItemId}`, { quantity });
+}
 

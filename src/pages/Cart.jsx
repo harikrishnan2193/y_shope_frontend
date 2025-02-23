@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getCartItemsAPI, updateCartItemAPI } from "../services/allApi";
+import { deleteCartItemAPI, getCartItemsAPI, updateCartItemAPI } from "../services/allApi";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
@@ -18,27 +18,24 @@ function Cart() {
 
   useEffect(() => {
     if (userId) {
-      getCartItems();
+      getCartItems()
     }
-  }, [userId]);
+  }, [userId])
 
   // fetch cart items from the backend
   const getCartItems = async () => {
     try {
-      const response = await getCartItemsAPI(userId);
-      if (response.status === 200) {
-        const items = response.data.map(item => ({
-          ...item,
-          quantity: Number(item.quantity),
-        }));
-        setCartItems(items);
+      const result = await getCartItemsAPI(userId);
+      if (result.status === 200) {
+        // console.log(result.data);
+        setCartItems(result.data);
       } else {
         console.error("Failed to fetch cart items");
       }
     } catch (err) {
       console.error("Error fetching cart items:", err);
     }
-  };
+  }
 
   // handle quantity change
   const updateQuantity = async (itemId, newQuantity) => {
@@ -71,6 +68,20 @@ function Cart() {
     }
   }
 
+  // function to delete a product from cart
+  const handleProductDelete = async (itemId, quantity) => {
+    const result = await deleteCartItemAPI(itemId, quantity);
+
+    if (result.status === 200) {
+      Swal.fire(result.data)
+      getCartItems()
+    }
+    else {
+      Swal.fire('Not able to delete')
+    }
+  }
+
+
   //function for clicking checkout 
   const handleCheckout = () => {
     Swal.fire('Checkout succussfull')
@@ -94,7 +105,7 @@ function Cart() {
                     <th className="p-3">Product Name</th>
                     <th className="p-3">Quantity</th>
                     <th className="p-3">Price</th>
-                    {/* <th className="p-3">Action</th> */}
+                    <th className="p-3">Action</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -105,45 +116,26 @@ function Cart() {
                         <td className="p-3">{item.name}</td>
                         <td className="p-3">
                           <div className="flex items-center space-x-2">
-                            <button
-                              className="px-3 py-1 bg-gray-300 rounded"
-                              onClick={() =>
-                                updateQuantity(item._id, item.quantity - 1)
-                              }
-                            >
-                              -
+                            <button className="px-3 py-1 bg-gray-300 rounded" onClick={() =>
+                              updateQuantity(item._id, item.quantity - 1)}>-
                             </button>
-                            <input
-                              type="text"
-                              value={item.quantity}
-                              className="w-10 text-center border rounded"
-                              readOnly
-                            />
-                            <button
-                              className="px-3 py-1 bg-gray-300 rounded"
-                              onClick={() =>
-                                updateQuantity(item._id, item.quantity + 1)
-                              }
-                            >
-                              +
+                            <input type="text" value={item.quantity} className="w-10 text-center border rounded" readOnly />
+                            <button className="px-3 py-1 bg-gray-300 rounded"
+                              onClick={() => updateQuantity(item._id, item.quantity + 1)}>+
                             </button>
                           </div>
                         </td>
-                        <td className="p-3 text-teal-500 font-bold">
-                          ₹{item.price}
-                        </td>
-                        {/* <td className="p-3">
-                          <button className="text-red-500 hover:text-red-700">
+                        <td className="p-3 text-teal-500 font-bold">₹{item.price}</td>
+                        <td className="p-3">
+                          <button onClick={() => handleProductDelete(item._id, item.quantity)} className="text-red-500 hover:text-red-700">
                             <i className="fa-solid fa-trash"></i>
                           </button>
-                        </td> */}
+                        </td>
                       </tr>
                     ))
                   ) : (
                     <tr>
-                      <td colSpan="6" className="text-center p-5">
-                        No items in the cart
-                      </td>
+                      <td colSpan="6" className="text-center p-5">No items in the cart</td>
                     </tr>
                   )}
                 </tbody>

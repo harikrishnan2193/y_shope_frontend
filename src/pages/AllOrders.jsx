@@ -39,6 +39,7 @@ function AllOrders() {
                 <th className="p-3">User Name</th>
                 <th className="p-3">Email</th>
                 <th className="p-3">Ordered Item</th>
+                <th className="p-3">Item Image</th>
                 <th className="p-3">Quantity</th>
               </tr>
             </thead>
@@ -49,6 +50,7 @@ function AllOrders() {
                     <td className="p-3">{index + 1}</td>
                     <td className="p-3">{order.username}</td>
                     <td className="p-3">{order.email}</td>
+                    <td className="p-3">{order.name}</td>
                     <td className="p-3 flex items-center space-x-3">
                       <img
                         src={`${BASE_URL}/uploads/${order.productImage}`}
