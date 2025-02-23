@@ -104,7 +104,7 @@ function Header() {
 
   return (
     <>
-      <div id='header' className="bg-red-700 py-2 text-white mx-auto lg:px-lg-padding xl:px-xl-padding">
+      <div id='header' className="bg-red-800 py-2 text-white mx-auto lg:px-lg-padding xl:px-xl-padding">
         <nav className="flex flex-col sm:flex-row items-center justify-between py-3 px-8 space-y-4 sm:space-y-0">
           <div className="flex items-center space-x-2">
             <i className="fa-brands fa-shopify text-5xl"></i>

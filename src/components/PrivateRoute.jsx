@@ -22,7 +22,7 @@ const PrivateRoute = ({ children }) => {
     return null; // Prevents rendering until user data is available
   }
 
-  return user?.role === "admin" ? children : <Navigate to="/" replace />;
+  return user?.role === "admin" ? children : <Navigate to="/404" replace />;
 };
 
 export default PrivateRoute;

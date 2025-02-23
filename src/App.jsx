@@ -12,6 +12,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { fetchProducts } from "./redux/productSlice";
 import PrivateRoute from "./components/PrivateRoute"
+import Page404 from "./pages/Page404"
 
 function App() {
   const dispatch = useDispatch();
@@ -40,6 +41,7 @@ function App() {
         <Route path="/register" element={<Auth />} />
         <Route path="/login" element={<Auth />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/404" element={<Page404 />} />
   
         {/* Protected Admin Routes */}
         <Route
