@@ -19,7 +19,7 @@ function Admin() {
   }, []);
 
   const products = useSelector((state) => state.products.items);
-  
+
   const dispatch = useDispatch();
 
   const handleStockUpdate = async () => {

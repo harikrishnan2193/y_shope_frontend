@@ -10,3 +10,7 @@ This template provides a minimal setup to get React working in Vite with HMR and
 
    ```bash
    npm install
+2. **Start running:**
+
+   ```bash
+   npm run dev
