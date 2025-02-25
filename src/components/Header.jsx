@@ -29,6 +29,10 @@ function Header() {
   useEffect(() => {
     const storedUser = JSON.parse(sessionStorage.getItem('userDetils'));
     setUserDetails(storedUser);
+    //get token from session and store to state
+    if (sessionStorage.getItem("token")) {
+      setToken(sessionStorage.getItem("token"))
+    }
   }, []);
 
   //set image url
@@ -37,13 +41,6 @@ function Header() {
       setImgPreview(URL.createObjectURL(product.productImage))
     }
   }, [product.productImage])
-
-  //get token from session and store to state
-  useEffect(() => {
-    if (sessionStorage.getItem("token")) {
-      setToken(sessionStorage.getItem("token"))
-    }
-  }, [])
 
   // logout function
   const handleLogout = () => {
@@ -57,7 +54,7 @@ function Header() {
   //function to handleCart
   const handleCart = () => {
     if (!token) {
-      Swal.fire('You are not loged in!')
+      Swal.fire('You are not loged in..! Please login')
     }
     else {
       navigate('/cart')
