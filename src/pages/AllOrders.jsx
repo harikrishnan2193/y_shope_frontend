@@ -57,7 +57,6 @@ function AllOrders() {
                         alt="Product"
                         className="w-12 h-12 rounded"
                       />
-                      <span>{order.productName}</span>
                     </td>
                     <td className="p-3 font-bold text-teal-500">{order.quantity}</td>
                   </tr>

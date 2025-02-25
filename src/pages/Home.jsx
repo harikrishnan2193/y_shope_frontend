@@ -10,7 +10,7 @@ function Home() {
   const products = useSelector((state) => state.products.items);
   const [token, setToken] = useState("")
 
-  
+
 
   //get token from session and store to state
   useEffect(() => {
@@ -22,7 +22,6 @@ function Home() {
   // function to add item to cart
   const handleAddToCart = async (product) => {
     if (!token) {
-      // alert("Not authorized to add items to cart. Please login");
       Swal.fire({
         title: "Not authorized to add items!",
         text: "Please login",
@@ -38,21 +37,21 @@ function Home() {
       price: product.price,
       quantity: 1,
       productImage: product.productImage,
-    };
+    }
     // console.log(reqBody);
 
     const reqHeader = {
       "Content-Type": "application/json",
       Authorization: `Bearer ${token}`,
-    };
+    }
 
     try {
       const result = await addToCartAPI(reqBody, reqHeader);
       if (result.status === 200) {
-        console.log(result);
+        // console.log(result);
         Swal.fire(result.data.message)
       } else {
-        console.log(result);
+        // console.log(result);
         Swal.fire(result.response.data.message)
       }
     } catch (error) {

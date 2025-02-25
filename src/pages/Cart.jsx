@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { deleteCartItemAPI, getCartItemsAPI, updateCartItemAPI } from "../services/allApi";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
+import { BASE_URL } from "../services/baseUrl";
 
 function Cart() {
   const navigate = useNavigate()
@@ -14,7 +15,7 @@ function Cart() {
       const parsedUser = JSON.parse(userDetails);
       setUserId(parsedUser._id);
     }
-  }, []);
+  }, [])
 
   useEffect(() => {
     if (userId) {
@@ -27,7 +28,6 @@ function Cart() {
     try {
       const result = await getCartItemsAPI(userId);
       if (result.status === 200) {
-        // console.log(result.data);
         setCartItems(result.data);
       } else {
         console.error("Failed to fetch cart items");
@@ -40,32 +40,25 @@ function Cart() {
   // handle quantity change
   const updateQuantity = async (itemId, newQuantity) => {
     newQuantity = Number(newQuantity);
-    if (newQuantity < 1) return;
-
-    try {
-      const response = await updateCartItemAPI(itemId, newQuantity);
-
-      if (response.status === 200) {
-        console.log(response);
+    if (newQuantity < 1) {
+      Swal.fire(`It's an invalid quantity`)
+    }
+    else {
+      const result = await updateCartItemAPI(itemId, newQuantity)
+      // console.log(result);
+      if (result.status === 200) {
+        // Swal.fire(result.data.message)
         setCartItems((prevItems) =>
           prevItems.map((item) =>
             item._id === itemId ? { ...item, quantity: newQuantity } : item
           )
-        );
-      } else {
-        Swal.fire(response.response.data.message)
-        // alert(response.data?.message || "Product reach the limit");
+        )
       }
-    } catch (err) {
-      console.error("Error updating quantity:", err);
-      const errorMsg =
-        err.response?.data?.message ||
-        (typeof err.response?.data === "string" ? err.response.data : "") ||
-        err.message ||
-        "Error updating quantity";
-      // alert(errorMsg);
-      Swal.fire(errorMsg)
+      else {
+        Swal.fire(result.response.data.message)
+      }
     }
+
   }
 
   // function to delete a product from cart
@@ -81,9 +74,9 @@ function Cart() {
     }
   }
 
-
   //function for clicking checkout 
   const handleCheckout = () => {
+    //checkout - navigate only
     Swal.fire('Checkout succussfull')
     navigate('/')
   }
@@ -103,6 +96,7 @@ function Cart() {
                   <tr className="bg-gray-200">
                     <th className="p-3">#</th>
                     <th className="p-3">Product Name</th>
+                    <th className="p-3">Item Image</th>
                     <th className="p-3">Quantity</th>
                     <th className="p-3">Price</th>
                     <th className="p-3">Action</th>
@@ -114,6 +108,13 @@ function Cart() {
                       <tr key={item._id} className="border-b">
                         <td className="p-3">{index + 1}</td>
                         <td className="p-3">{item.name}</td>
+                        <td className="p-3 flex items-center space-x-3">
+                          <img
+                            src={`${BASE_URL}/uploads/${item.productImage}`}
+                            alt="Product"
+                            className="w-14 h-16 "
+                          />
+                        </td>
                         <td className="p-3">
                           <div className="flex items-center space-x-2">
                             <button className="px-3 py-1 bg-gray-300 rounded"
