@@ -22,18 +22,6 @@ function App() {
   }, [dispatch]);
 
   return (
-    // <>
-    //   <Routes>
-    //     <Route path="/" element={<Home />} />
-    //     <Route path="/register" element={<Auth />} />
-    //     <Route path="/login" element={<Auth />} />
-    //     <Route path="/cart" element={<Cart />} />
-    //     <Route path="/admin" element={<Admin />} />
-    //     <Route path="/allUsers" element={<AllUsers />} />
-    //     <Route path="/allorders" element={<AllOrders />} />
-    //   </Routes>
-    //   <Footer />
-    // </>
 
     <>
       <Routes>
@@ -42,8 +30,8 @@ function App() {
         <Route path="/login" element={<Auth />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/404" element={<Page404 />} />
-  
-        {/* Protected Admin Routes */}
+
+        {/* Protected Admin routs */}
         <Route
           path="/admin"
           element={
@@ -68,6 +56,9 @@ function App() {
             </PrivateRoute>
           }
         />
+
+        {/* undefined path */}
+        <Route path="*" element={<Page404 />} />
       </Routes>
       <Footer />
     </>

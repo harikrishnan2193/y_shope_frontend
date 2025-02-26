@@ -16,8 +16,7 @@ const PrivateRoute = ({ children }) => {
     }
   }, []);
 
-  // console.log("Current user:", user); 
-
+  // console.log("Current user:", user);
   if (user === null) {
     return null;
   }

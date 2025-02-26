@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchProducts } from "../redux/productSlice";
+import { useSelector } from "react-redux";
 import Header from "../components/Header";
 import { BASE_URL } from "../services/baseUrl";
 import { addToCartAPI } from "../services/allApi";
 import Swal from "sweetalert2";
 
 function Home() {
-  const products = useSelector((state) => state.products.items);
+  const products = useSelector((state) => state.products.items)
   const [token, setToken] = useState("")
 
 
@@ -47,11 +46,11 @@ function Home() {
 
     try {
       const result = await addToCartAPI(reqBody, reqHeader);
+
       if (result.status === 200) {
         // console.log(result);
         Swal.fire(result.data.message)
       } else {
-        // console.log(result);
         Swal.fire(result.response.data.message)
       }
     } catch (error) {

@@ -168,7 +168,7 @@ function Header() {
             <nav className="flex flex-col items-start space-y-10 p-5 text-white">
               <Link to={'/cart'}>
                 <button className="btn btn-outline-light me-3">
-                  <i className="fa-solid fa-cart-shopping"></i> Cart 
+                  <i className="fa-solid fa-cart-shopping"></i> Cart
                 </button>
               </Link>
               {userDetails ? (
