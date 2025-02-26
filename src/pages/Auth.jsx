@@ -41,29 +41,29 @@ function Auth() {
   }
 
   //login function
-  const handleLogin = async(e)=>{
+  const handleLogin = async (e) => {
     e.preventDefault();
-    const {email,password} = userData
-    if(!email || !password){
+    const { email, password } = userData
+    if (!email || !password) {
       Swal.fire("Please fill the form completily")
     }
-    else{
+    else {
       const result = await loginAPI(userData)
       console.log(result);
 
-      if(result.status === 200){
-        sessionStorage.setItem('userDetils',JSON.stringify(result.data.existUser))
-        sessionStorage.setItem('token',result.data.token)
-
-        Swal.fire("Login successfull")
+      if (result.status === 200) {
+        sessionStorage.setItem('userDetils', JSON.stringify(result.data.existUser))
+        sessionStorage.setItem('token', result.data.token)
 
         if (result.data.existUser.role && result.data.existUser.role == "admin") {
           navigate('/admin');
+          Swal.fire("Login successfull. Welcome to Admin page")
         } else {
           navigate('/');
+          Swal.fire("Your Login successfull. Welcome User")
         }
       }
-      else{
+      else {
         Swal.fire(`${result.response.data}`)
       }
     }
