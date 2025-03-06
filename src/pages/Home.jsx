@@ -8,18 +8,29 @@ import Swal from "sweetalert2";
 function Home() {
   const products = useSelector((state) => state.products.items)
   const [token, setToken] = useState("")
+  const [isRoleAdmin, setIsRoleAdmin] = useState(false)
 
 
-
-  //get token from session and store to state
   useEffect(() => {
+    const storedUser = JSON.parse(sessionStorage.getItem('userDetils'));
+    //check user role is admin
+    if (storedUser?.role === "admin") {
+      setIsRoleAdmin(true);
+    }
+
+    //get token from session
     if (sessionStorage.getItem("token")) {
       setToken(sessionStorage.getItem("token"))
     }
+
   }, [])
 
   // function to add item to cart
   const handleAddToCart = async (product) => {
+    if (isRoleAdmin) {
+      Swal.fire("Admin not allowed to book items");
+      return;
+    }
     if (!token) {
       Swal.fire({
         title: "Not authorized to add items!",

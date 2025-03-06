@@ -19,6 +19,7 @@ function Header() {
   // console.log(product);
   const [imgPreview, setImgPreview] = useState("")
   const [token, setToken] = useState("")
+  const [isRoleAdmin, setIsRoleAdmin] = useState(false)
 
   const location = useLocation();
   const isAdminPath = location.pathname === '/admin';
@@ -32,6 +33,11 @@ function Header() {
     //get token from session and store to state
     if (sessionStorage.getItem("token")) {
       setToken(sessionStorage.getItem("token"))
+    }
+
+    //check user role is admin
+    if (storedUser) {
+      storedUser.role === 'admin' ? setIsRoleAdmin(true) : setIsRoleAdmin(false)
     }
   }, []);
 
@@ -115,11 +121,18 @@ function Header() {
 
           {isHomePath && (
             <div className='hidden text-white xl:flex flex-col sm:flex-row space-x-0 sm:space-x-8 space-y-2 sm:space-y-0'>
-              {/* <Link to={'/cart'}> */}
-              <button onClick={handleCart} className="btn btn-outline-light me-2">
-                <i className="fa-solid fa-cart-shopping"></i> Cart
-              </button>
-              {/* </Link> */}
+              {isRoleAdmin ||
+                <button onClick={handleCart} className="btn btn-outline-light me-2">
+                  <i className="fa-solid fa-cart-shopping"></i> Cart
+                </button>
+              }
+              {isRoleAdmin &&
+                <Link to={'/admin'}>
+                  <button className="btn btn-outline-light me-2">
+                    <i className="fa-solid fa-user-tie"></i> Admin
+                  </button>
+                </Link>
+              }
               {userDetails ? (
                 <button onClick={handleLogout} className='btn btn-outline-light rounded-pill'>
                   <i className="fa-solid fa-sign-out"></i> Logout ({userDetails.name})
@@ -166,11 +179,18 @@ function Header() {
           </div>
           {isHomePath && (
             <nav className="flex flex-col items-start space-y-10 p-5 text-white">
-              <Link to={'/cart'}>
-                <button className="btn btn-outline-light me-3">
+              {isRoleAdmin ||
+                <button onClick={handleCart} className="btn btn-outline-light me-2">
                   <i className="fa-solid fa-cart-shopping"></i> Cart
                 </button>
-              </Link>
+              }
+              {isRoleAdmin &&
+                <Link to={'/admin'}>
+                  <button className="btn btn-outline-light me-2">
+                    <i className="fa-solid fa-user-tie"></i> Admin
+                  </button>
+                </Link>
+              }
               {userDetails ? (
                 <button onClick={handleLogout} className='btn btn-outline-light rounded-pill'>
                   <i className="fa-solid fa-sign-out"></i> Logout ({userDetails.name})
@@ -186,7 +206,7 @@ function Header() {
           )}
           {isAdminPath && (
             <nav className="flex flex-col items-start space-y-10 p-5 text-white">
-              <button onClick={() => setIsModalOpen(true)} className='btn btn-outline-light me-4 rounded-pill'>
+              <button onClick={() => setIsModalOpen(true) || setIsMenuOpen(false)} className='btn btn-outline-light me-4 rounded-pill'>
                 <i className="fa-solid fa-cart-shopping"></i> Add Product
               </button>
               <Link to={'/allorders'}>
@@ -256,7 +276,7 @@ function Header() {
                 Cancel
               </button>
               <button onClick={handleAddProduct} className="px-4 py-2 bg-red-500 text-white rounded-md">
-                Save
+                Add
               </button>
             </div>
           </div>

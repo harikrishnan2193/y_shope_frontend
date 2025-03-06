@@ -55,7 +55,7 @@ function Footer() {
         </div>
       </div>
 
-      <div className="text-center text-sm">
+      <div className="text-center text-sm pb-3">
         <p>Copyright © 2023 Y-Shops @ Pvt Ltd</p>
       </div>
     </div>
