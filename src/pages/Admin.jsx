@@ -23,7 +23,7 @@ function Admin() {
   const dispatch = useDispatch();
 
   const handleStockUpdate = async () => {
-    if (!selectedProductId || !stock) {
+    if (!selectedProductId || !stock || stock <= 0) {
       Swal.fire("Please enter a valid stock quantity")
       return;
     }
