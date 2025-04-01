@@ -103,7 +103,7 @@ function Home() {
                 </div>
               ))
             ) : (
-              <p>Products are loading...</p>
+              <p className="font-semibold">Products are loading...</p>
             )}
           </div>
         </div>
