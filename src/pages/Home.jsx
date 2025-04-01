@@ -103,7 +103,7 @@ function Home() {
                 </div>
               ))
             ) : (
-              <p>No products currently available</p>
+              <p>Products are loading...</p>
             )}
           </div>
         </div>
