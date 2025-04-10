@@ -14,3 +14,16 @@ This template provides a minimal setup to get React working in Vite with HMR and
 
    ```bash
    npm run dev
+
+
+### 🔗 Backend Repository
+
+👉 [Backend GitHub Repo](https://github.com/harikrishnan2193/y_shope-backend)
+
+### 🖼️ Screenshot
+
+![App Screenshot](./src/assets/Screenshot.png)
+
+### 🚀 Live Demo
+
+[Click here to try the live app](https://y-shope-frontend.vercel.app/)
