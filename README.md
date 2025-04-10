@@ -1,8 +1,10 @@
-# React + Vite
+#  Y-Shope
 
-<!-- To start the development server, run: npm run dev -->
+## Description
+This project is built using **React.js** working in Vite and **Node.js** for the backend. It follows the **MVC architecture** and uses **MongoDB** as the database. The project includes CRUD operations and the manage data efficiently.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+The project is a dynamic, full-featured e-commerce website with **admin** and **user** login functionalities, where the admin can manage products add new items, update stock availability, and ensure seamless inventory control.
+The customers can browse, select, and purchase products based on real-time stock availability. The system dynamically adjusts product selection based on inventory levels, ensuring a smooth and efficient shopping experience.
 
 ## Getting Started
 
