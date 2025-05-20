@@ -24,43 +24,47 @@ function App() {
   return (
 
     <>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/register" element={<Auth />} />
-        <Route path="/login" element={<Auth />} />
-        <Route path="/cart" element={<Cart />} />
-        <Route path="/404" element={<Page404 />} />
+      <div className="min-h-screen flex flex-col">
+        <main className="flex-grow">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/register" element={<Auth />} />
+            <Route path="/login" element={<Auth />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/404" element={<Page404 />} />
 
-        {/* Protected Admin routs */}
-        <Route
-          path="/admin"
-          element={
-            <PrivateRoute>
-              <Admin />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/allUsers"
-          element={
-            <PrivateRoute>
-              <AllUsers />
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path="/allorders"
-          element={
-            <PrivateRoute>
-              <AllOrders />
-            </PrivateRoute>
-          }
-        />
+            {/* protected admin routs */}
+            <Route
+              path="/admin"
+              element={
+                <PrivateRoute>
+                  <Admin />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/allUsers"
+              element={
+                <PrivateRoute>
+                  <AllUsers />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/allorders"
+              element={
+                <PrivateRoute>
+                  <AllOrders />
+                </PrivateRoute>
+              }
+            />
 
-        {/* undefined path */}
-        <Route path="*" element={<Page404 />} />
-      </Routes>
-      <Footer />
+            {/* undefined path */}
+            <Route path="*" element={<Page404 />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
     </>
 
   );

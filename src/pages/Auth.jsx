@@ -73,10 +73,10 @@ function Auth() {
   return (
     <div className='mx-auto lg:px-lg-padding xl:px-xl-padding'>
       <div className="flex  py-12 px-8">
-        <div className="hidden md:flex w-1/2 bg-cover bg-center" style={{ backgroundImage: 'url(https://img.freepik.com/free-photo/red-light-round-podium-black-background-mock-up_43614-950.jpg?t=st=1740138091~exp=1740141691~hmac=76e2ea62bca3c5b6e8b42ef8916693a6e8ffaf2986856c81f843eb4ae1b7d104&w=900)' }}>
+        <div className="hidden md:flex w-1/2 bg-cover bg-center" style={{ backgroundImage: 'url(https://cdn.pixabay.com/photo/2018/05/16/22/21/shopping-3407232_1280.jpg)' }}>
           <div className="flex flex-col justify-center items-center w-full h-full text-white bg-black bg-opacity-50 p-10">
-            <h1 className="text-3xl font-bold mb-4">Welcome to Y-Shopes</h1>
-            <p className="text-center">Your one-stop solution for all your shoping choise.</p>
+            <h1 className="text-3xl font-bold mb-4 text-center">Welcome to Y-Shopes</h1>
+            <p className="text-center text-gray-300">Your one-stop solution for all your shoping choise.</p>
           </div>
         </div>
 
